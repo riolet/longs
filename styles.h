@@ -33,7 +33,7 @@
 
 #define HEADER_LAYOUT \
                 MVHPEN8("%s" /*title*/,\
-                                        STAG(meta, property="og:image" content="http://nopedotc.com/ogimage.png")\
+                                        STAG(meta, property="og:image" content="https://s3-us-west-2.amazonaws.com/longs/longs/12909521_1122574984461904_6097725197580477283_o.jpg")\
                                         STAG(meta, property=viewport content="width=device-width, initial-scale=1")\
                                         OTAG(style) MAIN_CSS SINGLE_COLUMN_CSS CTAG(style)\
                         )\
