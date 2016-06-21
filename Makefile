@@ -1,8 +1,8 @@
 #!/bin/make
 
-ifdef THREADS
-	PTHREAD=-D NOPE_THREADS=$(THREADS) -pthread
-endif
+
+PTHREAD=-D NOPE_THREADS=$(THREADS) -pthread
+
 
 ifdef DEBUG
 	ifeq ($(DEBUG),0)
@@ -34,25 +34,26 @@ EXT_OPTIONS=$(PTHREAD) $(DEBUG_OPT) $(PROCESSES_OPT) $(LOOP_OPT) $(MAX_CON_CONS_
 
 AR=ar
 CFLAGS=-W -Wall -O2 -Wno-unused-parameter -g $(EXT_OPTIONS)
-LIBNOPE_OBJ=nope.o nopeapi.o
-LIBNOPE=libnope.a
-MODULES=server example longs
+LIBLONG_OBJ=wafer.o waferapi.o sqlite3.o cencode.o cdecode.o
+LIBLONG=liblong.a
+MODULES=longs
+OPTIONS=-ldl
 
 all: $(MODULES)
 
 # rule to build modules
-%: %.c $(LIBNOPE)
+%: %.c $(LIBLONG)
 	$(CC) $(CFLAGS) -o $@ $^ $(OPTIONS)
 
-$(LIBNOPE): $(LIBNOPE_OBJ)
+$(LIBLONG): $(LIBLONG_OBJ)
 	$(AR) r $@ $^
 
 %.o: %.c
 	$(CC) $(CFLAGS) -c -o $@ $<
 
 clean:
-	rm -f $(LIBNOPE_OBJ)
+	rm -f $(LIBLONG_OBJ) $(MODULES)
 
 distclean:
-	rm -f $(LIBNOPE) $(LIBNOPE_OBJ) $(MODULES)
+	rm -f $(LIBLONG) $(LIBNOPE_OBJ) $(MODULES)
 
