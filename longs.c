@@ -27,19 +27,30 @@ char* b64decode(const char* input);
 static char* alphabet_base_encode(char *hash1, int id);
 long alphabet_base_decode(const char *hash1);
 
+
 #define HASH_LENGTH 3
 #define ALPHABET_BASE
 char alphebet[ALPHABET_BASE] = "abcdefghjklmnpkrstuvwxyz23456789";
 char alphabet_table [255] = {
--1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,
--1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,24,25,26,27,28,29,30,31,-1,-1,-1,-1,-1,-1,-1,-1,
--1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,0,1,2,
-3,4,5,6,7,-1,8,14,10,11,12,-1,13,-1,15,16,17,18,19,20,21,22,23,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,
--1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,
--1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,
--1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,
--1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1
+    -1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,
+    -1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,24,25,26,27,28,29,30,31,-1,-1,-1,-1,-1,-1,-1,-1,
+    -1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,0,1,2,
+    3,4,5,6,7,-1,8,14,10,11,12,-1,13,-1,15,16,17,18,19,20,21,22,23,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,
+    -1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,
+    -1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,
+    -1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,
+    -1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1
 };
+
+char valid_html_chars [255] = {
+    0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1,1,0,1,1,1,1,1,1,1,1,1,1,1,1,
+    1,1,1,1,1,1,1,1,1,1,0,1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1,0,1,0,1,1,1,
+    1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+    0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+    0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+    0,0,0,0,0
+};
+
 long powerof32[HASH_LENGTH] = {1024, 32, 1};
 
 
@@ -104,7 +115,13 @@ static void form(Request *request, Response *response) {
 
 static void shorten(char *longUrl, Response *response) {
 
-	char * zErrMsg;
+    //Validate url
+    if (!validate_url(longUrl)) {
+        resPrintf(response, "Must be a valid URL.");
+        return;
+    }
+
+    char * zErrMsg;
 
     //To prevent bobbytabling, we encode the URL
     char * b64URL = b64encode(longUrl);
@@ -181,8 +198,7 @@ static int fetch_id(void *data, int argc, char **argv, char **azColName) {
         Params * params = (Params *) data;
 
         dbgprintf("fetch_id %d %s\n",query_stat,result);
-		int id_entry = atoi(result);//db retrived string convert into integer
-		if (id_entry == 0)id_entry = 1; // remove the id entry zero
+		int id_entry = atoi(result);
 
         char hash[HASH_LENGTH+1];
 		alphabet_base_encode(hash, id_entry);
@@ -254,3 +270,38 @@ char* b64decode(const char* input)
 
 	return output;
 }
+
+bool validate_url(char *c) {
+    char * http_string = "http";
+    int c_len = strlen(c);
+    int i;
+
+    for (i=0;i<4;i++) {
+        if (i>=c_len||c[i]!=http_string[i]) {
+            printf ("Invalid Scheme %cd %c %d\n",c[i],http_string[i],i);
+            return false;
+        }
+    }
+    if (i<c_len&&c[i]=='s') {
+        i++;
+    }
+    int cursor = i;
+    char * colslashslash = "://";
+    for (i=cursor;i<3;i++) {
+        if (i>=c_len||c[i]!=colslashslash[i]) {
+            printf ("Invalid Scheme %c %c %d\n",c[i],http_string[i],i);
+            return false;
+        }
+    }
+
+    cursor=i;
+
+    for (i=cursor;i<c_len;i++) {
+        if (!valid_html_chars[c[i]]) {
+            printf ("Invalid Scheme %c %d\n",c[i],i);
+            return false;
+        }
+    }
+    return true;
+}
+

@@ -45,12 +45,12 @@
                                 OTAGA(div, id="content")
 
 
-#define FOOTER_LAYOUT  "\n\t\t<div id=\"footer\">\r\n\t\t\tCopyright \u00A9 Riolet Corporation, %d\r\n\t\t</div>\r\n\t</div>\r\n</div>" HP_CLOSE
+#define FOOTER_LAYOUT  "\n\t\t<div id=\"footer\">\r\n\t\t\tCopyright \u00A9 " QLINK("https://riolet.com","Riolet Corporation")  ", %d\r\n\t\t</div>\r\n\t</div>\r\n</div>" HP_CLOSE
 
 #define WELCOME_PAGE \
                 CTAG(div)\
 				OTAGA(div,id="content")\
-				QTAG(h2, "Welcome to Lon.gs, the url shortner.")\
+				QTAG(h2, "Welcome to Lon.gs, the url shortener.")\
 				QTAG(P, "Lon.gs is built upon " QLINK("https://github.com/riolet/WAFer","WAFer")  ", a light flyweight platform for creating lightning fast and scalable network applications using C language.")\
 				QTAG(P, "Lon.gs is built with " QLINK("https://www.sqlite.org/","SQLite") ", a self-contained, embeddable, zero-configuration SQL database engine, so no database setup is necessary.")\
 				QTAG(P, "Lon.gs will happily do 10K concurrent connections on an AWS t2.nano, where this website is being served from.")\
