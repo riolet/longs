@@ -278,7 +278,7 @@ bool validate_url(char *c) {
 
     for (i=0;i<4;i++) {
         if (i>=c_len||c[i]!=http_string[i]) {
-            printf ("Invalid Scheme %cd %c %d\n",c[i],http_string[i],i);
+            dbgprintf ("Invalid Scheme %cd %c %d\n",c[i],http_string[i],i);
             return false;
         }
     }
@@ -289,7 +289,7 @@ bool validate_url(char *c) {
     char * colslashslash = "://";
     for (i=cursor;i<3;i++) {
         if (i>=c_len||c[i]!=colslashslash[i]) {
-            printf ("Invalid Scheme %c %c %d\n",c[i],http_string[i],i);
+            dbgprintf ("Invalid Scheme %c %c %d\n",c[i],http_string[i],i);
             return false;
         }
     }
@@ -298,7 +298,7 @@ bool validate_url(char *c) {
 
     for (i=cursor;i<c_len;i++) {
         if (!valid_html_chars[c[i]]) {
-            printf ("Invalid Scheme %c %d\n",c[i],i);
+            dbgprintf ("Invalid Scheme %c %d\n",c[i],i);
             return false;
         }
     }
