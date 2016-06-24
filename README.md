@@ -23,6 +23,14 @@ You can configure the app using the following environmental variables:
 
 ## Docker
 
+You may use our official image on [Docker Hub](https://hub.docker.com/r/riolet/longs/).
+
+```bash
+docker docker pull riolet/longs
+docker run -p 80:80 riolet/longs
+```
+
+
 This repo includes a Dockerfile, which allows it to be built into a docker container.
 
 ```bash
