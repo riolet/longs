@@ -10,4 +10,11 @@ Lon.gs is built with [SQLite](https://www.sqlite.org/), a self-contained, embedd
 
 Lon.gs will happily do 10K concurrent connections on an AWS t2.nano, where our website is being served from.
 
-Default port is 4242. Set environment variable 'PORT' to change it.
+You can configure the app using the following environmental variables:
+
+| Option | Defualt Value |
+|--------|---------|
+| PORT   | 8242    |
+| BASE_URL   | lon.gs    |
+| DB_PATH   | URL_Records.db    |
+| HASH_LENGTH   | 5    |

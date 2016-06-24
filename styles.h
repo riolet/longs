@@ -55,9 +55,8 @@
 				QTAG(P, "Lon.gs is built with " QLINK("https://www.sqlite.org/","SQLite") ", a self-contained, embeddable, zero-configuration SQL database engine, so no database setup is necessary.")\
 				QTAG(P, "Lon.gs will happily do 10K concurrent connections on an AWS t2.nano, where this website is being served from.")\
 				QTAG(P, "Lon.gs is open source, check us out on " QLINK("https://github.com/riolet/longs","github"))\
-				CTAG(div)
-
-
+				QTAG(P, QTAG(EM,"N.B. This website is for demonstration purposes only. We clean the database regularly."))\
+				CTAG(div)\
 
 #include "background_image.h"
 

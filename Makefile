@@ -1,7 +1,8 @@
 #!/bin/make
 
-
-PTHREAD=-D NOPE_THREADS=$(THREADS) -pthread
+ifdef THREADS
+	NTHREAD=-D NOPE_THREADS=$(THREADS)
+endif
 
 
 ifdef DEBUG
@@ -30,11 +31,11 @@ ifndef CC
 	CC=gcc
 endif
 
-EXT_OPTIONS=$(PTHREAD) $(DEBUG_OPT) $(PROCESSES_OPT) $(LOOP_OPT) $(MAX_CON_CONS_OPT)
+EXT_OPTIONS=$(NTHREAD) $(DEBUG_OPT) $(PROCESSES_OPT) $(LOOP_OPT) $(MAX_CON_CONS_OPT) -pthread
 
 AR=ar
 CFLAGS=-W -Wall -O2 -Wno-unused-parameter -g $(EXT_OPTIONS)
-LIBLONG_OBJ=wafer.o waferapi.o sqlite3.o cencode.o cdecode.o
+LIBLONG_OBJ=wafer.o waferapi.o sqlite3.o
 LIBLONG=liblong.a
 MODULES=longs
 OPTIONS=-ldl
@@ -50,6 +51,9 @@ $(LIBLONG): $(LIBLONG_OBJ)
 
 %.o: %.c
 	$(CC) $(CFLAGS) -c -o $@ $<
+
+test:
+	$(CC) $(CFLAGS) -o longs_test longs_test.c  $(LIBLONG) $(OPTIONS)
 
 clean:
 	rm -f $(LIBLONG_OBJ) $(MODULES)
