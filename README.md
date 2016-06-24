@@ -18,3 +18,16 @@ You can configure the app using the following environmental variables:
 | BASE_URL   | lon.gs    |
 | DB_PATH   | URL_Records.db    |
 | HASH_LENGTH   | 5    |
+
+
+
+## Docker
+
+This repo includes a Dockerfile, which allows it to be built into a docker container.
+
+```bash
+docker build --tag=longs .
+docker run -p 80:80 longs
+```
+
+This will start Lon.gs listening on port 80 on your Docker net IP
