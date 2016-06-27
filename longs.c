@@ -139,6 +139,8 @@ static void getLongUrl(char *shortUrl, Params * params) {
     if (rc == SQLITE_ROW) {
         params->response->apiFlags |= API_FLAGS_DONT_SET_HEADER_BEFORE_SENDING;
         STATIC_SEND(params->response->fd, "HTTP/1.1 301 Moved Permanently\r\n");
+        STATIC_SEND(params->response->fd, "Content-Type: */*; charset=\"UTF-8\"\r\n");
+        STATIC_SEND(params->response->fd, "Content-Length: 0\r\n");
 		resPrintf(params->response, "Location: %s\r\n", sqlite3_column_text(ppStmt, 0));
 		STATIC_SEND(params->response->fd, "\r\n");
     } else {
