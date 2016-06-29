@@ -14,7 +14,7 @@ You can configure the app using the following environmental variables:
 
 | Option | Defualt Value |
 |--------|---------|
-| PORT   | 8242    |
+| PORT   | 4242    |
 | BASE_URL   | lon.gs    |
 | DB_PATH   | URL_Records.db    |
 | HASH_LENGTH   | 5    |

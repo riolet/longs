@@ -158,7 +158,7 @@ static void printShortUrl(char * hash, Params * params) {
             snprintf(shortUrl, SIZE, "%s/%s",baseUrl,hash);
             resPrintf(params->response, "Here's the short url of <em>%s</em> ", params->longUrl);
             resPrintf(params->response,
-				STAG(input, type="text" disabled="disabled" value="%s"),
+				STAG(input, type="text" readonly="readonly" value="%s"),
 				shortUrl);
 }
 
