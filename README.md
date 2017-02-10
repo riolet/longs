@@ -1,6 +1,6 @@
 # Lon.gs
 
-[![Build Status](https://drone.io/github.com/riolet/longs/status.png)](https://drone.io/github.com/riolet/longs/latest)
+[![Build Status](https://jenkins-longs.hotbed.io/job/longs-longs/badge/icon)](https://jenkins-longs.hotbed.io/job/longs-longs/)
 
 Welcome to Lon.gs, the url shortner.
 
