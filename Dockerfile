@@ -7,6 +7,7 @@ RUN apt-get -y update \
 WORKDIR /var/www/longs
 COPY . /var/www/longs
 RUN make 
-
+RUN mkdir /data && sudo chown :0 /data && chmod g+s /data
+ENV DB_PATH=/data/URL_Records.db
 EXPOSE 8080
 CMD PORT=8080 ./longs
