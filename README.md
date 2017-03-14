@@ -1,6 +1,5 @@
 # Lon.gs
-
-[![Build Status](https://jenkins-longs.hotbed.io/job/longs-longs/badge/icon)](https://jenkins-longs.hotbed.io/job/longs-longs/)
+[![Build Status](https://jenkins-longs.hotbed.io/buildStatus/icon?job=longs-longs)](https://jenkins-longs.hotbed.io/job/longs-longs/)
 
 Welcome to Lon.gs, the url shortner.
 
